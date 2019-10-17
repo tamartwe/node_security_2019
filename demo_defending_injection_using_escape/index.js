@@ -1,22 +1,22 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-var  User =  require('./models/users.js');
-var app = express();
+const  User =  require('./models/users.js');
+const app = express();
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 mongoose.connect('mongodb://localhost:27017/injectioDemo');
 
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 
 //Signup API
 app.post('/signup', function (req, res) {
 
-  var newUser = new User(req.body);
+  const newUser = new User(req.body);
   newUser.save(function(err,data){
     if(err){
         res.send(err);
