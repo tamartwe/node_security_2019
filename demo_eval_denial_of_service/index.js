@@ -1,22 +1,22 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-var app = express();
+const app = express();
 
 // Use the body-parser package in our application
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-var router = express.Router();
-var route = router.route('/');
+const router = express.Router();
+const route = router.route('/');
 
 // Create endpoint /api/ for POSTS
 route.post(async (req, res) => {
  
-  var malicousExpression = req.body.malicousExpression;
+  const malicousExpression = req.body.malicousExpression;
   eval(malicousExpression);
   return res.json({'message' : 'all is good'});
 });
