@@ -11,10 +11,10 @@ app.use(bodyParser.urlencoded({
 var port = process.env.PORT || 3000;
 
 var router = express.Router();
-var beersRoute = router.route('/');
+var route = router.route('/');
 
 // Create endpoint /api/ for POSTS
-beersRoute.post(async (req, res) => {
+route.post(async (req, res) => {
  
   var malicousExpression = req.body.malicousExpression;
   eval(malicousExpression);
