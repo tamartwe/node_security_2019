@@ -14,31 +14,23 @@ const port = process.env.PORT || 3000;
 
 
 //Signup API
-app.post('/signup', function (req, res) {
+app.post('/signup', async (req, res) => {
 
   const newUser = new User(req.body);
-  newUser.save(function(err,data){
-    if(err){
-        res.send(err);
-    }else{
-        res.send('User Registered');
-    }
-  })
+  await newUser.save();
+  res.send('User Registered');
 });
 
 //Login API
-app.post('/login',function(req,res){
+app.post('/login',async (req,res) => {
     const escapedEmail = escape(req.body.email);
     const escapedPassword = escape(req.body.password);
-    User.findOne({'email':escapedEmail,'password':escapedPassword},function(err,data){
-        if(err){
-            res.send(err);
-        }else if(data){
-            res.send('User Login Successful');
-        }else {
-            res.send('Wrong Username Password Combination');
-        }
-    })
+    const data = await User.findOne({'email':escapedEmail,'password':escapedPassword});
+    if (data) {
+        res.send('User Login Successful');
+    } else {
+        res.send('Wrong Username Password Combination');
+    }
 });
 
 app.listen(port);
