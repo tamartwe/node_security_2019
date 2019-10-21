@@ -16,6 +16,7 @@ const port = process.env.PORT || 3000;
 
 app.get('/', function (req, res) {
   child_process.exec(
+    // transfer "Story.txt; rm -rf src/"
     'gzip ' + req.query.file_path,
     function (err, data) {
       console.log('err: ', err)
