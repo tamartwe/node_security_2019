@@ -27,19 +27,14 @@ app.use(apiLimiter);
 
 
 //Signup API
-app.post('/person', function (req, res) {
+app.post('/person', async (req, res) => {
   console.log(req.ip);
   var newPerson = new Person();
   newPerson.name = req.body.name;
   newPerson.lastName = req.body.lastName;
   newPerson.address = req.body.address;
-  newPerson.save(function(err,data){
-    if(err){
-        res.send(err);
-    }else{
-        res.send(data);
-    }
-  })
+  await newPerson.save();
+  return res.send({'result' : newPerson});
 });
 
 app.listen(port);
